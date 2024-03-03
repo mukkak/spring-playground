@@ -54,5 +54,5 @@ jobs:
 
           for project in ${PROJECTS}; do
             docker tag mukkak/${project}:current ghcr.io/mukkak/${project}:$IMAGE_VERSION
-            docker push mukkak/${project}:$IMAGE_VERSION
+            docker push ghcr.io/mukkak/${project}:$IMAGE_VERSION
           done
