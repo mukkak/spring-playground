@@ -22,16 +22,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Java
-        uses: actions/setup-java@v3
-        with:
-          java-version: '21'
-          distribution: 'temurin'
-          cache: maven
-
-      - name: Maven Build
-        run: mvn --batch-mode --update-snapshots verify
-
       - name: Build Images
         run: |
           for project in ${PROJECTS}; do

@@ -5,7 +5,7 @@ WORKDIR /usr/src/project
 COPY pom.xml ./pom.xml
 COPY src ./src
 
-# RUN --mount=type=cache,target=/root/.m2 mvn clean verify
+RUN --mount=type=cache,target=/root/.m2 mvn --batch-mode --update-snapshots verify
 RUN mkdir dist && \
     cp target/*.jar dist/application.jar && \
     cd dist && \
