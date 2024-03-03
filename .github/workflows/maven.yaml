@@ -34,7 +34,25 @@ jobs:
 
       - name: Build Images
         run: |
-          echo "${PROJECTS}"
           for project in ${PROJECTS}; do
-            echo "Building image mukkak/${project}:latest"
+            docker build ${project} --tag mukkak/${project}:current --label "GITHUB_RUN_ID=${GITHUB_RUN_ID}"
+          done
+
+      - name: Registry Login
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+
+      - name: Push Images
+        run: |
+          # This strips the git ref prefix from the version.
+          IMAGE_VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+
+          # This strips the "v" prefix from the tag name.
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && IMAGE_VERSION=$(echo $IMAGE_VERSION | sed -e 's/^v//')
+
+          # This uses the Docker `latest` tag convention.
+          [ "$IMAGE_VERSION" == "main" ] && IMAGE_VERSION=latest
+
+          for project in ${PROJECTS}; do
+            docker tag mukkak/${project}:current mukkak/${project}:$IMAGE_VERSION
+            docker push mukkak/${project}:$IMAGE_VERSION
           done
