@@ -1,0 +1,57 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>mukkak</groupId>
+  <artifactId>spring-playground</artifactId>
+  <version>main-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.2.2</version>
+    <relativePath/>
+  </parent>
+
+  <modules>
+    <module>example</module>
+    <module>bank</module>
+  </modules>
+
+<!--  <properties>-->
+<!--    <java.version>21</java.version>-->
+<!--    <maven.compiler.source>${java.version}</maven.compiler.source>-->
+<!--    <maven.compiler.target>${java.version}</maven.compiler.target>-->
+<!--    <project.build.scourceEncoding>UTF-8</project.build.scourceEncoding>-->
+<!--    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
+<!--  </properties>-->
+
+<!--  <build>-->
+<!--    <plugins>-->
+<!--      <plugin>-->
+<!--        <groupId>org.apache.maven.plugins</groupId>-->
+<!--        <artifactId>maven-compiler-plugin</artifactId>-->
+<!--        <configuration>-->
+<!--          <compilerArgs>-->
+<!--            <arg>-proc:full</arg>-->
+<!--&lt;!&ndash;            <arg>-XX:+EnableDynamicAgentLoading</arg>&ndash;&gt;-->
+<!--          </compilerArgs>-->
+<!--        </configuration>-->
+<!--      </plugin>-->
+<!--      <plugin>-->
+<!--        <groupId>org.springframework.boot</groupId>-->
+<!--        <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--        <configuration>-->
+<!--          <excludes>-->
+<!--            <exclude>-->
+<!--              <groupId>org.projectlombok</groupId>-->
+<!--              <artifactId>lombok</artifactId>-->
+<!--            </exclude>-->
+<!--          </excludes>-->
+<!--        </configuration>-->
+<!--      </plugin>-->
+<!--    </plugins>-->
+<!--  </build>-->
+</project>

@@ -1,0 +1,70 @@
+# See https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+name: Maven Build
+
+on:
+  push:
+    branches: [ "main" ]
+    tags: ["v*"]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  PROJECTS: example bank
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Maven Build
+        run: mvn --batch-mode --update-snapshots verify
+
+  #      - name: Prepare Artifacts
+  #        run: mkdir dist && cp target/*.jar dist
+  #
+  #      - name: Upload Build Artifact
+  #        uses: actions/upload-artifact@v4
+  #        with:
+  #          name: dist
+  #          path: dist
+
+      - name: Build Images
+        run: |
+          echo "${PROJECTS}"
+          for project in ${PROJECTS}; do
+            echo "Building image mukkak/${project}:latest"
+#            docker build ${project} --tag mukkak/${project} --label "GITHUB_RUN_ID=${GITHUB_RUN_ID}"
+          done
+
+#      - name: Registry Login
+#        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+#
+#      - name: Push Images
+#        run: |
+#          # This strips the git ref prefix from the version.
+#          IMAGE_VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+#
+#          # This strips the "v" prefix from the tag name.
+#          [[ "${{ github.ref }}" == "refs/tags/"* ]] && IMAGE_VERSION=$(echo $IMAGE_VERSION | sed -e 's/^v//')
+#
+#          # This uses the Docker `latest` tag convention.
+#          [ "$IMAGE_VERSION" == "main" ] && IMAGE_VERSION=latest
+#
+#          docker tag mukkak/example mukkak/example:$IMAGE_VERSION
+#          docker push mukkak/example:$IMAGE_VERSION
+#
+#          docker tag mukkak/bank mukkak/bank:$IMAGE_VERSION
+#          docker push mukkak/bank:$IMAGE_VERSION

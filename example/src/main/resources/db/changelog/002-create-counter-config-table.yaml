@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-create-counter-config-sequence
+      author: developer
+      changes:
+        - createSequence:
+            sequenceName: counter_config_seq
+            incrementBy: 1
+
+  - changeSet:
+      id: 002-create-counter-config-table
+      author: developer
+      changes:
+        - createTable:
+            tableName: counter_config
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: is_default
+                  type: BOOL
+                  constraints:
+                    nullable: false
+              - column:
+                  name: counter_id
+                  type: BIGINT
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: increment_size
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(64)
+                  constraints:
+                    nullable: false

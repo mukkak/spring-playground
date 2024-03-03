@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    root: info
+    mukkak.example: debug
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${POSTGRES_URL}/example
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
+  jpa:
+    show-sql: false
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate.format_sql: true
+
+build:
+  groupId: '@project.groupId@'
+  artifactId: '@project.artifactId@'
+  version: '@project.version@'
+
+example:
+  secret: 1234
